@@ -1,4 +1,4 @@
-#---------Practice lesson №2---------
+#---------Practice lesson №1---------
 # The variables for task
 #1.
 sum=0
