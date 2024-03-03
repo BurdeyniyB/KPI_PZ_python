@@ -42,16 +42,16 @@ def show_matrix(matrix: list[list[int]]) -> None:
     print(show_matrix)
 
 
-def task1(matrix: list[list[int]]) -> None:
-    save = [[0] * len(matrix) for _ in range(len(matrix))]
+def task1(matrix: list[list[int]], size: int) -> None:
+    save = [[0] * size for _ in range(size)]
     ind = 0
     need_row = 0
     need_column = 0
     max_sequence: int
     iteration = 0
 
-    for i in range(len(matrix)):
-        for j in range(1, len(matrix)):
+    for i in range(size):
+        for j in range(1, size):
             if matrix[i][j] < matrix[i][j - 1]:
                 save[i][ind] += 1
             else:
@@ -59,18 +59,16 @@ def task1(matrix: list[list[int]]) -> None:
             iteration += 1
         ind = 0
     max_sequence = save[0][0]
-
-
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
+    for i in range(size):
+        for j in range(size):
             if save[i][j] > max_sequence:
                 max_sequence = save[i][j]
                 need_row = i + 1
             iteration += 1
     print(f"row with the most many sequence: {need_row}")
-    save = [[0] * len(matrix) for _ in range(len(matrix))]
-    for i in range(len(matrix)):
-        for j in range(1, len(matrix)):
+    save = [[0] * size for _ in range(size)]
+    for i in range(size):
+        for j in range(1, size):
             if matrix[j - 1][i] < matrix[j][i]:
                 save[ind][i] += 1
             else:
@@ -79,9 +77,9 @@ def task1(matrix: list[list[int]]) -> None:
         ind = 0
     max_sequence = save[0][0]
 
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            if (save[i][j] > max_sequence):
+    for i in range(size):
+        for j in range(size):
+            if save[i][j] > max_sequence:
                 max_sequence = save[i][j]
                 need_column = j + 1
             iteration += 1
@@ -89,21 +87,22 @@ def task1(matrix: list[list[int]]) -> None:
     print(f"Iteration: {iteration}")
 
 
-def task2(matrix: list[list[int]]) -> None:
-    replacement_matrix = [[0] * int(len(matrix) // 2) for _ in range(int(len(matrix) // 2))]
+def task2(matrix: list[list[int]], main_matrix_size: int) -> None:
+    replacement_matrix_size = int(main_matrix_size // 2)
+    replacement_matrix = [[0] * replacement_matrix_size for _ in range(replacement_matrix_size)]
     iteration = 0
 
-    for i in range(len(replacement_matrix)):
-        for j in range(len(replacement_matrix)):
+    for i in range(replacement_matrix_size):
+        for j in range(replacement_matrix_size):
             replacement_matrix[i][j] = matrix[i][j]
             iteration += 1
-    for i in range(len(replacement_matrix)):
-        for j in range(len(replacement_matrix)):
-            matrix[i][j] = matrix[i + len(replacement_matrix)][j + len(replacement_matrix)]
+    for i in range(replacement_matrix_size):
+        for j in range(replacement_matrix_size):
+            matrix[i][j] = matrix[i + replacement_matrix_size][j + replacement_matrix_size]
             iteration += 1
-    for i in range(len(replacement_matrix)):
-        for j in range(len(replacement_matrix)):
-            matrix[i + len(replacement_matrix)][j + len(replacement_matrix)] = replacement_matrix[i][j]
+    for i in range(replacement_matrix_size):
+        for j in range(replacement_matrix_size):
+            matrix[i + replacement_matrix_size][j + replacement_matrix_size] = replacement_matrix[i][j]
             iteration += 1
     print("Changed matrix:")
     show_matrix(matrix)
@@ -131,9 +130,9 @@ if __name__ == "__main__":
     choise_task = get_choose_task()
     time_begin = time.perf_counter_ns()
     if choise_task == 1:
-        task1(matrix)
+        task1(matrix, matrix_size)
     else:
-        task2(matrix)
+        task2(matrix, matrix_size)
     time_after = time.perf_counter_ns()
     spend_time = time_after - time_begin
     print(f"Time: {spend_time}")
