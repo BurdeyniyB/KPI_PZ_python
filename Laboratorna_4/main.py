@@ -5,10 +5,9 @@ from DoubleList import DoubleList
 
 
 def check_digit() -> int:
-    choice = input("Enter a number: ")
+    choice = input("").replace('\n', '')
     if choice.isdigit():
         return int(choice)
-    print("Incorrect data!")
     return check_digit()
 
 
@@ -16,10 +15,13 @@ def fill_list(curr_list, name: string) -> None:
     count_elements: int
     element: int
 
+
+
     print(f"Enter the number of elements for the {name}:")
     count_elements = check_digit()
     print(f"Enter the elements for the {name}:")
-    for _ in range(count_elements):
+    for i in range(count_elements):
+        print(f"{i}->", end="")
         element = check_digit()
         curr_list.append(element)
     print("Linked List:")
@@ -43,9 +45,11 @@ def variant_task(curr_list, name: string) -> None:
 
 
 if __name__ == "__main__":
+    # Declaration
     linked_list: LinkedList
     double_list: DoubleList
 
+    # Initialization
     linked_list = LinkedList()
     double_list = DoubleList()
 
